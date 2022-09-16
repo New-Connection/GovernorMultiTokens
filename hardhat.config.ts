@@ -8,6 +8,9 @@ import "@nomiclabs/hardhat-ethers";
 // import "@nomicfoundation/hardhat-chai-matchers";
 import "@nomiclabs/hardhat-waffle";
 import "@nomiclabs/hardhat-ethers";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY || "";
 
@@ -24,6 +27,16 @@ const config: HardhatUserConfig = {
   networks: {
     hardhat: {
       allowUnlimitedContractSize: true,
+    },
+
+    localhost: {
+      chainId: 37337,
+    },
+
+    rinkeby: {
+      url: process.env.RINKEBY_URL || "",
+      accounts:
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
   },
   namedAccounts: {

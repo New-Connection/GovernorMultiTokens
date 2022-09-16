@@ -28,4 +28,4 @@ const deployGovernanceToken: DeployFunction = async function (hre) {
 };
 
 export default deployGovernanceToken;
-deployGovernanceToken.tags = ["all", "GovernanceNFT", "NFT2"];
+deployGovernanceToken.tags = ["all","mainnet", "GovernanceNFT", "NFT2"];
