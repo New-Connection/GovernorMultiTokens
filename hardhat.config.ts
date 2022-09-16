@@ -3,28 +3,36 @@ import { HardhatUserConfig } from "hardhat/config";
 import "hardhat-deploy";
 // import "@nomiclabs/hardhat-web3";
 import "solidity-coverage";
-import '@typechain/hardhat'
-import '@nomiclabs/hardhat-ethers'
+import "@typechain/hardhat";
+import "@nomiclabs/hardhat-ethers";
 // import "@nomicfoundation/hardhat-chai-matchers";
 import "@nomiclabs/hardhat-waffle";
 import "@nomiclabs/hardhat-ethers";
 
-const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY || ""
+const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY || "";
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.9",
+  solidity: {
+    version: "0.8.9",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
+    },
+  },
   networks: {
     hardhat: {
-      allowUnlimitedContractSize: true
-    }
+      allowUnlimitedContractSize: true,
+    },
   },
   namedAccounts: {
     deployer: {
-        default: 0, // here this will by default take the first account as deployer
+      default: 0, // here this will by default take the first account as deployer
     },
     notOwner: {
       default: 2,
-    }
+    },
   },
   // gasReporter: {
   //   enabled: false,
