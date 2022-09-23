@@ -2,9 +2,7 @@ import { expect } from "chai";
 import { ethers } from "hardhat";
 import {
     LZEndpointMock,
-    LZEndpointMock__factory,
     ONFT721Mock,
-    ONFT721Mock__factory,
 } from "../../typechain-types";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 

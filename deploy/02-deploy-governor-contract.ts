@@ -4,7 +4,7 @@ import {
     VOTING_PERIOD,
     QUORUM_PERCENTAGE,
     GOVERNOR_NAME,
-} from "../helper-hardhat-config";
+} from "../utils/helper-hardhat-config";
 
 const deployGovernorContract: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     const { getNamedAccounts, deployments } = hre;

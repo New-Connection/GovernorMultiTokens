@@ -7,7 +7,13 @@ import "@openzeppelin/contracts/token/ERC721/extensions/draft-ERC721Votes.sol";
 import "@openzeppelin/contracts/utils/cryptography/draft-EIP712.sol";
 import "./layerzero/token/onft/ONFT721.sol";
 
-contract GovernanceNFT is ERC721, ERC721Enumerable, EIP712, ERC721Votes, ONFT721 {
+contract GovernanceNFT is
+    ERC721,
+    ERC721Enumerable,
+    EIP712,
+    ERC721Votes,
+    ONFT721
+{
     uint256 public immutable pricePerToken;
     uint256 public nextMintId;
     uint256 public maxMintId;
@@ -17,6 +23,7 @@ contract GovernanceNFT is ERC721, ERC721Enumerable, EIP712, ERC721Votes, ONFT721
     constructor(
         string memory name_,
         string memory symbol_,
+        string memory baseURI_,
         uint256 priceInEther,
         address layerZeroEndpoint_,
         uint256 startMintId_,
@@ -25,6 +32,7 @@ contract GovernanceNFT is ERC721, ERC721Enumerable, EIP712, ERC721Votes, ONFT721
         nextMintId = startMintId_;
         maxMintId = endMintId_;
         pricePerToken = priceInEther;
+        setBaseURI(baseURI_);
     }
 
     function supportsInterface(bytes4 interfaceId)
@@ -41,7 +49,13 @@ contract GovernanceNFT is ERC721, ERC721Enumerable, EIP712, ERC721Votes, ONFT721
         return _baseURI();
     }
 
-    function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        virtual
+        override
+        returns (string memory)
+    {
         _requireMinted(tokenId);
 
         return _baseURI();
@@ -68,14 +82,20 @@ contract GovernanceNFT is ERC721, ERC721Enumerable, EIP712, ERC721Votes, ONFT721
         _safeMint(msg.sender, newId);
     }
 
-    function setAllowList(address[] calldata addresses, uint8 numAllowedToMint) external onlyOwner {
+    function setAllowList(address[] calldata addresses, uint8 numAllowedToMint)
+        external
+        onlyOwner
+    {
         for (uint256 i = 0; i < addresses.length; i++) {
             _allowList[addresses[i]] = numAllowedToMint;
         }
     }
 
     function reserve(uint256 amount) public onlyOwner {
-        require(nextMintId + (amount - 1) <= maxMintId, "Max mint limit reached");
+        require(
+            nextMintId + (amount - 1) <= maxMintId,
+            "Max mint limit reached"
+        );
 
         for (uint256 i = 0; i < amount; i++) {
             uint256 newId = nextMintId;
@@ -84,7 +104,7 @@ contract GovernanceNFT is ERC721, ERC721Enumerable, EIP712, ERC721Votes, ONFT721
         }
     }
 
-    function setBaseURI(string memory baseURI_) external onlyOwner {
+    function setBaseURI(string memory baseURI_) public onlyOwner {
         _baseURIextended = baseURI_;
     }
 

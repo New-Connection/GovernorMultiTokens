@@ -1,5 +1,5 @@
 import { DeployFunction } from "hardhat-deploy/types";
-import { NFT_NAME, NFT_PRICE, NFT_SYMBOL } from "../helper-hardhat-config";
+import { NFT_BASE_URI, NFT_PRICE, NFT_SYMBOL } from "../utils/helper-hardhat-config";
 import LZ_ENDPOINTS from "../constants/layerzeroEndpoints.json";
 import ONFT_ARGS from "../constants/onftArgs.json";
 import { ethers } from "hardhat";
@@ -18,6 +18,7 @@ const deployFakeGovernanceToken: DeployFunction = async function (hre) {
         args: [
             "FAKENFT",
             NFT_SYMBOL,
+            NFT_BASE_URI,
             ethers.utils.parseEther(NFT_PRICE),
             lzEndpointAddress,
             onftArgs.startMintId,

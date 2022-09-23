@@ -9,7 +9,7 @@ import {
     QUORUM_PERCENTAGE,
     VOTING_DELAY,
     VOTING_PERIOD,
-} from "../helper-hardhat-config";
+} from "../utils/helper-hardhat-config";
 import { reserve } from "../utils/governanceNFT-utils";
 
 describe("2-0-Propose to Governor", async () => {
@@ -56,26 +56,26 @@ describe("2-0-Propose to Governor", async () => {
         it('check initial lenght of DAO tokens', async function () {
             expect(await governor.getTokensLength()).equal(1)
         })
-        
+
         it('[ERROR] should fail if set a new from not owner address', async function () {
             await expect(governor.connect(notOwner).addToken(outsideNFT.address)).revertedWith(
                 "Ownable: caller is not the owner"
             );
         })
-        
+
         it('add new token address into DAO', async function () {
             await governor.connect(owner).addToken(outsideNFT.address)
             expect(await governor.getTokensLength()).equal(2)
         })
-        
-        it('[ERROR] add initial NFT address into DAO', async function() {
+
+        it('[ERROR] add initial NFT address into DAO', async function () {
             expect(await governor.getTokensLength()).equal(2)
             await expect(governor.connect(owner).addToken(governanceNFT.address)).revertedWith(
                 "GovernorVotes: This address is already exist"
             );
         })
 
-        it('[ERROR] add same address into DAO', async function() {
+        it('[ERROR] add same address into DAO', async function () {
             expect(await governor.getTokensLength()).equal(2)
             await expect(governor.connect(owner).addToken(outsideNFT.address)).revertedWith(
                 "GovernorVotes: This address is already exist"

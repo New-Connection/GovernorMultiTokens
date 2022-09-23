@@ -66,7 +66,11 @@ contract GovernorContract is
         return _governorInfoURI;
     }
 
-    function proposalInfoURI(uint256 proposalId) public view returns (string memory) {
+    function proposalInfoURI(uint256 proposalId)
+        public
+        view
+        returns (string memory)
+    {
         return _proposalsInfoURIs[proposalId];
     }
 
@@ -74,7 +78,9 @@ contract GovernorContract is
         _governorInfoURI = newInfoURI;
     }
 
-    function setProposalInfoURI(uint256 proposalId, string memory infoURI) public {
+    function setProposalInfoURI(uint256 proposalId, string memory infoURI)
+        public
+    {
         require(getProposer(proposalId) == _msgSender(), "Not proposer");
         _proposalsInfoURIs[proposalId] = infoURI;
     }
@@ -86,7 +92,13 @@ contract GovernorContract is
         string memory description,
         IVotes tokenAddress
     ) public virtual override tokenExist(tokenAddress) returns (uint256) {
-        uint256 proposalId = super.propose(targets, values, calldatas, description, tokenAddress);
+        uint256 proposalId = super.propose(
+            targets,
+            values,
+            calldatas,
+            description,
+            tokenAddress
+        );
         _proposers[proposalId] = _msgSender();
         _totalProposals++;
         return proposalId;
@@ -98,7 +110,12 @@ contract GovernorContract is
         bytes[] memory calldatas,
         bytes32 descriptionHash
     ) public returns (uint256) {
-        uint256 proposalId = hashProposal(targets, values, calldatas, descriptionHash);
+        uint256 proposalId = hashProposal(
+            targets,
+            values,
+            calldatas,
+            descriptionHash
+        );
         require(
             getProposer(proposalId) == _msgSender() || owner() == _msgSender(),
             "Not proposer or owner"
@@ -109,6 +126,7 @@ contract GovernorContract is
     function version() public pure override returns (string memory) {
         return "2.0";
     }
+
     function incrementExecutedProposals() public onlyGovernance {
         _executedProposals++;
     }

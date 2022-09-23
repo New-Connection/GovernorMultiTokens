@@ -1,11 +1,11 @@
 import { ethers, deployments } from "hardhat";
 import { GovernorContract, GovernanceNFT } from "../typechain-types";
-import { moveBlocks } from "../utils/move-blocks";
+import { moveBlocks } from "../utils/helper-hardhat-config";
 import { expect } from "chai";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
-import { PROPOSAL_DESCRIPTION, VOTING_DELAY, VOTING_PERIOD } from "../helper-hardhat-config";
+import { PROPOSAL_DESCRIPTION, VOTING_DELAY, VOTING_PERIOD } from "../utils/helper-hardhat-config";
 import { delegate, reserve, transferNFT } from "../utils/governanceNFT-utils";
-import { DEBUG } from "../helper-hardhat-config";
+import { DEBUG } from "../utils/helper-hardhat-config";
 
 describe("3-Executing proposals in Governor", async () => {
     let governor: GovernorContract;

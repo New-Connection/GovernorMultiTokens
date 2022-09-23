@@ -3,7 +3,7 @@ import { GovernanceNFT } from "../typechain-types";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect } from "chai";
 import { setAllowList, reserve, mint } from "../utils/governanceNFT-utils";
-import { NFT_BASE_URI, NFT_PRICE } from "../helper-hardhat-config";
+import { NFT_BASE_URI, NFT_PRICE } from "../utils/helper-hardhat-config";
 import ONFT_ARGS from "../constants/onftArgs.json";
 
 describe("1-Test NFT contract functions", async () => {

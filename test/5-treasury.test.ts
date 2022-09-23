@@ -3,8 +3,8 @@ import { GovernorContract, Treasury, GovernanceNFT } from "../typechain-types";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect } from "chai";
 import { delegate, reserve, transferNFT } from "../utils/governanceNFT-utils";
-import { VOTING_DELAY, VOTING_PERIOD, DEBUG } from "../helper-hardhat-config";
-import { moveBlocks } from "../utils/move-blocks";
+import { VOTING_DELAY, VOTING_PERIOD, DEBUG } from "../utils/helper-hardhat-config";
+import { moveBlocks } from "../utils/helper-hardhat-config";
 
 describe("5 - Test treasury functions", async () => {
     let governor: GovernorContract;
@@ -66,8 +66,8 @@ describe("5 - Test treasury functions", async () => {
 
         //1 - Active
         expect(await governor.state(proposalId)).equal(1);
-        DEBUG ? 
-        console.log(`Proposal with id:${proposalId} created`) : ""
+        DEBUG ?
+            console.log(`Proposal with id:${proposalId} created`) : ""
     };
 
     it("should increment treasury's counter", async function () {

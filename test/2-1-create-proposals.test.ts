@@ -1,11 +1,11 @@
-import {ethers, deployments} from "hardhat";
-import {GovernorContract, GovernanceNFT} from "../typechain-types";
-import {expect} from "chai";
-import {SignerWithAddress} from "@nomiclabs/hardhat-ethers/signers";
-import {PROPOSAL_DESCRIPTION, PROPOSAL_INFO_URI, VOTING_DELAY} from "../helper-hardhat-config";
-import {delegate, reserve} from "../utils/governanceNFT-utils";
-import { DEBUG } from "../helper-hardhat-config";
-import { moveBlocks } from "../utils/move-blocks";
+import { ethers, deployments } from "hardhat";
+import { GovernorContract, GovernanceNFT } from "../typechain-types";
+import { expect } from "chai";
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
+import { PROPOSAL_DESCRIPTION, PROPOSAL_INFO_URI, VOTING_DELAY } from "../utils/helper-hardhat-config";
+import { delegate, reserve } from "../utils/governanceNFT-utils";
+import { DEBUG } from "../utils/helper-hardhat-config";
+import { moveBlocks } from "../utils/helper-hardhat-config";
 
 describe("2-1-Propose to Governor", async () => {
     let governor: GovernorContract;
@@ -49,7 +49,7 @@ describe("2-1-Propose to Governor", async () => {
         expect(await governor.state(proposalId)).to.equal(0);
     });
 
-    it("[Error] should fail create proporsal, because we don't have this NFT in DAO", async function (){
+    it("[Error] should fail create proporsal, because we don't have this NFT in DAO", async function () {
         await expect(
             governor
                 .connect(owner)
@@ -81,7 +81,7 @@ describe("2-1-Propose to Governor", async () => {
             )}`
         ) : ''
         await governanceNFT.connect(owner).delegate(notOwner.address);
-        DEBUG ?  console.log(
+        DEBUG ? console.log(
             `Account votes after delegate${ethers.utils.formatEther(
                 await governanceNFT.getVotes(notOwner.address)
             )}`
