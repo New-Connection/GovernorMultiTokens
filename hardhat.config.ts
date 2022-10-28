@@ -1,17 +1,26 @@
-import { HardhatUserConfig } from "hardhat/config";
-// import "@nomicfoundation/hardhat-toolbox";
+import { HardhatUserConfig, task } from "hardhat/config";
 import "hardhat-deploy";
-// import "@nomiclabs/hardhat-web3";
 import "solidity-coverage";
 import "@typechain/hardhat";
 import "@nomiclabs/hardhat-ethers";
-// import "@nomicfoundation/hardhat-chai-matchers";
 import "@nomiclabs/hardhat-waffle";
 import * as dotenv from "dotenv";
 
 dotenv.config();
 
-const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY || "";
+task("moveBlocks", "Move for N blocks")
+    .addParam("blocks", "Amount of blocks")
+    .setAction(async (taskArgs) => {
+        console.log(`running for ${taskArgs.blocks} blocks`);
+        for (let i = 0; i < +taskArgs.blocks; i++) {
+            // @ts-ignore
+            await network.provider.request({
+                method: "evm_mine",
+                params: [],
+            });
+        }
+    });
+
 
 const config: HardhatUserConfig = {
     solidity: {
