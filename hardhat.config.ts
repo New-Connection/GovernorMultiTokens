@@ -7,7 +7,6 @@ import "@typechain/hardhat";
 import "@nomiclabs/hardhat-ethers";
 // import "@nomicfoundation/hardhat-chai-matchers";
 import "@nomiclabs/hardhat-waffle";
-import "@nomiclabs/hardhat-ethers";
 import * as dotenv from "dotenv";
 
 dotenv.config();
@@ -15,45 +14,45 @@ dotenv.config();
 const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY || "";
 
 const config: HardhatUserConfig = {
-  solidity: {
-    version: "0.8.9",
-    settings: {
-      optimizer: {
-        enabled: true,
-        runs: 200,
-      },
+    solidity: {
+        version: "0.8.9",
+        settings: {
+            optimizer: {
+                enabled: true,
+                runs: 200,
+            },
+        },
     },
-  },
-  networks: {
-    hardhat: {
-      allowUnlimitedContractSize: true,
-    },
+    networks: {
+        hardhat: {
+            allowUnlimitedContractSize: true,
+        },
 
-    localhost: {
-      chainId: 37337,
-    },
+        localhost: {
+            url: "http://127.0.0.1:8545"
+        },
 
-    rinkeby: {
-      url: process.env.RINKEBY_URL || "",
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+        rinkeby: {
+            url: process.env.RINKEBY_URL || "",
+            accounts:
+                process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+        },
     },
-  },
-  namedAccounts: {
-    deployer: {
-      default: 0, // here this will by default take the first account as deployer
+    namedAccounts: {
+        deployer: {
+            default: 0, // here this will by default take the first account as deployer
+        },
+        notOwner: {
+            default: 2,
+        },
     },
-    notOwner: {
-      default: 2,
-    },
-  },
-  // gasReporter: {
-  //   enabled: false,
-  //   currency: "USD",
-  //   outputFile: "gas-report.txt",
-  //   noColors: true,
-  //   coinmarketcap: COINMARKETCAP_API_KEY,
-  // },
+    // gasReporter: {
+    //   enabled: false,
+    //   currency: "USD",
+    //   outputFile: "gas-report.txt",
+    //   noColors: true,
+    //   coinmarketcap: COINMARKETCAP_API_KEY,
+    // },
 };
 
 export default config;
